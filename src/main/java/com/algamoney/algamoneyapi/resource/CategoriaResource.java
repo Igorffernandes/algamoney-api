@@ -34,13 +34,13 @@ public class CategoriaResource {
 		private ApplicationEventPublisher publisher;
 		
 		@GetMapping
-		@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oath2.hasScope('read')")
+		@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 		public List<Categoria> listar(){
 				return categoriaRepository.findAll();
 		}
 		
 		@PostMapping
-		@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oath2.hasScope('write')")
+		@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oauth2.hasScope('write')")
 		public ResponseEntity<Categoria> criar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
 				Categoria categoriaSalva = categoriaRepository.save(categoria);
 				
@@ -50,7 +50,7 @@ public class CategoriaResource {
 		}
 		
 		@GetMapping("/{codigo}")
-		@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oath2.hasScope('read')")
+		@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and #oauth2.hasScope('read')")
 		public ResponseEntity<Categoria> findById(@PathVariable Long codigo) {
 				Categoria categoria = categoriaRepository.findOne(codigo);		
 				return categoria != null ? ResponseEntity.ok(categoria) : 	ResponseEntity.notFound().build();   
@@ -71,7 +71,7 @@ public class CategoriaResource {
 	    */
 		
 		@DeleteMapping("/{codigo}")
-		@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oath2.hasScope('write')")
+		@PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA') and #oauth2.hasScope('write')")
 		@ResponseStatus(HttpStatus.NO_CONTENT)
 		public void Remover(@PathVariable Long codigo) {
 				categoriaRepository.delete(codigo);
